@@ -138,7 +138,7 @@ PDF Presentation is available here: <a href="https://speakerdeck.com/rondymesqui
 
 <h2 id="docker-and-microservices">Docker and Microservices</h2>
 
-<p>Here, we are going to use most of benefits that Docker brings us, reducing all the configuration time and focusing on what matters: Have a CI server up and ready to run build steps. Furthermore, Docker brings to possibility to reuse the configuration and makes easier to port the whole setup to a new environment. No further ado, let&rsquo;s get started!</p>
+<p>Here, we are going to use most of benefits that Docker brings us, reducing all the configuration time and focusing on what matters: Have a CI server up and ready to run build steps. Furthermore, Docker brings the possibility to reuse the configuration and makes easier to port the whole setup to a new environment. No further ado, let&rsquo;s get started!</p>
 
 <h2 id="tools">Tools</h2>
 
@@ -153,19 +153,19 @@ PDF Presentation is available here: <a href="https://speakerdeck.com/rondymesqui
 <p>For this example, I had used:</p>
 
 <ul>
-<li>Drone - [<a href="http://drone.io/](">http://drone.io/](</a>)
+<li>Drone - <a href="http://drone.io/">http://drone.io/</a>
 
 <ul>
 <li>Is a continuous delivery platform built for containers. Will serve as our CI execution server</li>
 </ul></li>
-<li>Gogs - [<a href="https://gogs.io](">https://gogs.io](</a>)
+<li>Gogs - <a href="https://gogs.io">https://gogs.io</a>
 
 <ul>
 <li>Self-hosted git repository</li>
 </ul></li>
 </ul>
 
-<h2 id="arch">Arch</h2>
+<h2 id="architecture">Architecture</h2>
 
 <p>We will have Drone and Gogs running over Docker containers. Also, we are going to use Docker Compose to make easier networking configuration and make the whole environment portable with a single file.</p>
 
@@ -280,10 +280,10 @@ networks:
 <h4 id="note-1">Note</h4>
 
 <blockquote>
-<p>To speed up the <strong>Gogs</strong> database configuration, I copy the file [<a href="https://github.com/rondymesquita/drone-playground/blob/master/app.ini](">https://github.com/rondymesquita/drone-playground/blob/master/app.ini](</a>) to <strong>/var/gogs/gogs/conf/</strong> folder on my machine. This folder is a shared docker volume used by <strong>Gogs</strong> to store its configuration data. It&rsquo;s optional, because you can configure Gogs manually, inserting the database url and credentials.</p>
+<p>To speed up the <strong>Gogs</strong> database configuration, I copy the file <a href="https://github.com/rondymesquita/drone-playground/blob/master/app.ini">https://github.com/rondymesquita/drone-playground/blob/master/app.ini</a> to <strong>/var/gogs/gogs/conf/</strong> folder on my host machine. This folder is a shared docker volume used by <strong>Gogs</strong> to store its configuration data. It&rsquo;s optional, because you can configure Gogs manually, inserting the database url and credentials.</p>
 </blockquote>
 
-<p>Enter on folder and do:</p>
+<p>Enter on cloned project folder and execute:</p>
 
 <pre><code>$ ./tasks.sh up
 </code></pre>
@@ -324,7 +324,7 @@ email:      gogs@email.com
 Set the name to <code>sample-app-python</code> and click <code>Create Repository</code>.</p>
 
 <p>Similiar to Github, Gogs will show you the commands to push you code to the remote repository.
-Just wait paciently. We are going to push soon.</p>
+Just wait patiently. We are going to push soon.</p>
 
 <h3 id="drone">Drone</h3>
 
@@ -333,12 +333,19 @@ Just wait paciently. We are going to push soon.</p>
 <p>You should be able to login with same user created on Gogs. For this example: <code>user: gogs and password: password</code>.
 Click on <strong>Activate</strong> link and you should be able to see the repository created on Gogs.</p>
 
-<p>You must:
-1. Click on toggle switch( to enable the repository on Drone).
-2. After enable, click on <strong>gear</strong> icon that it will appear;
-3. Click on <strong>Trusted</strong> toggle switch (to enable drone project to access Docker shared volumes);</p>
+<p>You must:</p>
 
-<p><strong>That is it!</strong> Now, let&rsquo;s go back to repository configuration.
+<ol>
+<li>Click on toggle switch to <strong>enable</strong> the repository on Drone.</li>
+<li>After enable, click on <strong>gear</strong> icon that it will appear;</li>
+<li>Click on <strong>Trusted</strong> toggle switch to enable drone project to access Docker shared volumes;</li>
+</ol>
+
+<p><strong>That is it!</strong></p>
+
+<h3 id="repository-configuration">Repository Configuration</h3>
+
+<p>Now, let&rsquo;s go back to repository configuration.
 Again, I&rsquo;m using <code>sample-app-python</code> sample project.
 Enter on the folder and just configure the Git as any other Git repository, paying attention to use Gogs credentials.</p>
 
@@ -350,7 +357,7 @@ git config user.email &quot;gogs@email.com&quot;
 <p>Configure the remote:</p>
 
 <pre><code class="language-bash">git remote add ci http://[GOGS_IP]:[GOGS_PORT]/gogs/sample-app-python.git
-# git remote add ci http://172.19.0.3:3000/gogs/sample-app-python.git
+# E.g. git remote add ci http://172.19.0.3:3000/gogs/sample-app-python.git
 </code></pre>
 
 <p>So now, just add the files to commit, <strong>push it and see the magic happens</strong>:</p>
@@ -361,7 +368,7 @@ git config user.email &quot;gogs@email.com&quot;
 <h3 id="what-will-drone-do">What will Drone do?</h3>
 
 <ol>
-<li>Drone will create a docker container based on the image informed on <strong>.drone.yml</strong> file as you specified.</li>
+<li>Drone will create a docker container based on the image informed on <strong>.drone.yml</strong>.</li>
 <li>Drone will <strong>clone</strong> the code from Gogs to inside that container.</li>
 <li>Drone will execute the <strong>commands</strong> in order as they were informed on the <strong>.drone.yml</strong> file.</li>
 </ol>
@@ -369,7 +376,7 @@ git config user.email &quot;gogs@email.com&quot;
 <h4 id="note-2">Note</h4>
 
 <blockquote>
-<p>You should noticed that I used <strong>ci</strong> as the name of the remote. Named remote enable you to use multiples remotes for the same repository. So, you can use this approach on a existing project without impact, paying attention only for where you are pushing it.</p>
+<p>You should noticed that I used <strong>ci</strong> as the name of the remote. Named remote enables you to use multiples remotes for the same repository. So, you can use this approach on a existing project without impact, paying attention only for where you are pushing it.</p>
 </blockquote>
 
 <h3 id="shared-volumes-and-reporting">Shared Volumes and Reporting</h3>
@@ -398,7 +405,7 @@ pipeline:
 
 <p>Note that the coverage is generated and copied to the shared volume. So it is possible to get the coverage report on the host machine by accessing <strong>/var/drone/reports/</strong>. This is the reason of enabling the <strong>Trusted</strong> flag on Drone.</p>
 
-<p>For now, that is it. You just have configured a Continuous Integration enviroment running over Docker containers. I hope it was helpful. If you have any doubts, see the repository on Github and/or send me a message.</p>
+<p>For now, that is it. You just have configured a <strong>Continuous Integration enviroment running over Docker containers</strong>. I hope it was helpful. If you have any doubts, see the repository on Github and/or send me a message.</p>
 
                   
 
