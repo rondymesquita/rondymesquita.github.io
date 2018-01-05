@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Gradle -- Rondy Mesquita</title>
+
+    
+
+    
+    <link href="http://localhost:1313/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="http://localhost:1313/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://localhost:1313">Rondy Mesquita</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="http://localhost:1313/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:1313/post/">Archives</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:1313/me/">Me</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('http://localhost:1313/img/post-bg.jpg')">
+    
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>Gradle</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">
+                 
+  A 4 minute read,
+
+Posted by <a href="#">Rondy Mesquita</a> on Wed, Aug 9, 2017
+<br />
+In <a href="http://localhost:1313/categories/how-to">How-To</a>, <a href="http://localhost:1313/categories/devops">Devops</a>
+
+<br />
+Tags <a href="http://localhost:1313/tags/docker">docker</a>, <a href="http://localhost:1313/tags/network">network</a>
+
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <p>O gradle é uma ferramenta de automação de build, testes, publicação e deploy de software. O gradle também realiza o gerenciamento de dependências da aplicação. Assim como o maven ele baixa as dependências e as adiciona no projeto. Uma das vantagens que eu particularmente gosto do gradle, é sua facilidade de criar tasks. As tasks são trechos de códigos (como funções) que realizam um pedaço do trabalho na build.</p>
+
+<p>O código de exemplo pode ser baixado em <a href="https://github.com/rondymesquita/SimpleJavaProject-Gradle">https://github.com/rondymesquita/SimpleJavaProject-Gradle</a></p>
+
+<p>##Instalando</p>
+
+<p>Vamos configurar o ambiente do gradle.</p>
+
+<p>Primeiro, baixe o gradle em <a href="http://www.gradle.org">http://www.gradle.org</a>, e descompacte numa pasta, de preferência, uma pasta que você não mude.</p>
+
+<p>Após baixar,  configure as variáveis de ambiente do sistema de acordo com seu SO. A variável que deverá ser adiciona é <strong>GRADLE__HOME.</strong> Ela deve conter o valor da pasta raiz de onde o gradle está descompactado. Por exemplo (no OSX): <strong>GRADLE__HOME=/usr/local/gradle-1.8</strong></p>
+
+<p>No <strong>PATH</strong>, você deve adicionar também a pasta BIN do gradle. Por exemplo (no OSX): <strong>PATH=$PATH:$GRADLE__HOME/bin</strong>
+No OSX, basta adicionar isso no seu arquivo <strong>~/.bash__profile</strong></p>
+
+<pre><code>GRADLE__HOME=/usr/local/gradle-1.8
+export GRADLE__HOME
+export PATH=$PATH:$GRADLE__HOME/bin
+</code></pre>
+
+<p>Para ter certeza que o gradle foi corretamente instalado, acesse o terminal (cmd no Windows), e digite:</p>
+
+<pre><code>gradle -v
+</code></pre>
+
+<p>Ele deve mostrar a versão do gradle instalada e outras informações.</p>
+
+<p>##Configurando</p>
+
+<p>Primeiro crie seu projeto java como de costume. Nesse exemplo foi criado um projeto simples utilizando maven com o comando:</p>
+
+<pre><code>mvn archetype:generate
+</code></pre>
+
+<p>Na pasta raiz do seu projeto, crie um arquivo build.gradle e nele coloque o  seguinte conteúdo:</p>
+
+<pre><code>apply plugin:'java'
+apply plugin:'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+</code></pre>
+
+<p>##Explicando</p>
+
+<p>O código acima mostra a estrutura do arquivo de build do gradle. Nas linhas 1 e 2, foram adicionados o plugins, dando suporte ao gradle de trabalhar com java e na IDE Eclipse, Existem plugins para trabalhar com projetos java web (apply plugin:’war’), com jetty (apply plugin:’jetty’) e muitos outros. Eles podem ser consultado em <a href="http://www.gradle.org/docs/current/userguide/standard__plugins.html">http://www.gradle.org/docs/current/userguide/standard__plugins.html</a></p>
+
+<p>Em repositories são declarados de onde o gradle irá baixar as dependências, o que não iremos nos deter nesse primeiro momento. Em dependencies são declaradas as dependências do projeto que serão abordadas mais a frente. Nesse exemplo está sendo utilizado o JUnit na versão 4.11 para escopo de testes.</p>
+
+<p>Para verificar se o arquivo de build está correto para rodar o gradle no projeto, execute:</p>
+
+<pre><code>gradle tasks
+</code></pre>
+
+<p>Esse comando irá listar todas as tasks que podem ser executadas no projeto. Como nesse exemplo eu estou utilizando o Eclipse com IDE, então execute:</p>
+
+<pre><code>gradle clean eclipse
+</code></pre>
+
+<p>O gradle irá gerar os arquivos necessários para rodar o projeto no eclipse.</p>
+
+<p>##Tasks</p>
+
+<p>Se você quiser rodar os testes unitários do seu projeto, execute:</p>
+
+<pre><code>gradle test
+</code></pre>
+
+<p>Ele vai executar os testes e gerar um relatório no formato html.</p>
+
+<p>Certo, e onde estão esses relatórios? Na pasta raiz do projeto você verá uma pasta build. É nessa pasta que o gradle gera seus artefatos. Os relatórios de teste estão em <strong>build/reports/tests/index.html</strong></p>
+
+<p>Para gerar o jar da aplicação basta executar:</p>
+
+<pre><code>gradle jar
+</code></pre>
+
+<p>O jar ficará na pasta build/libs</p>
+
+<p>##Gerenciamento de dependências</p>
+
+<p>Até agora, a única dependência utilizada foi o JUnit. Se você olhar o build path do projeto, ele estará lá. Se você quiser adicionar uma nova dependência do projeto, basta colocar a referência dela na closure dependencies.</p>
+
+<p>Digamos que agora eu necessito utilizar Spring no projeto. Como eu faço? Baixo os jars e adiciono ele no build path do eclipse? Não. Simplesmente adicione na closure dependêncies:</p>
+
+<pre><code>compile 'org.springframework:spring-core:4.1.0.RELEASE'
+compile 'org.springframework:spring-context:4.1.0.RELEASE'
+</code></pre>
+
+<p>No terminal execute:</p>
+
+<pre><code>gradle eclipse
+</code></pre>
+
+<p>O gradle irá baixar o jars, e adicioná-los no build path projeto, Legal não? O arquivo ficará assim:</p>
+
+<pre><code>apply plugin:'java'
+apply plugin:'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+    compile 'org.springframework:spring-core:4.1.0.RELEASE'
+    compile 'org.springframework:spring-context:4.1.0.RELEASE'
+}
+</code></pre>
+
+<p>Isso facilita na hora de adicionar novas dependências ou trocar a versão da dependência. Para encontrar outras dependências, um dos sites que eu costumo acessar é: <a href="http://mvnrepository.com">http://mvnrepository.com</a>. Você procura a dependência que deseja, escolhe a versão e pega o código da aba Gradle.</p>
+
+<p>A documentação detalhada pode ser encontrada em <a href="http://www.gradle.org/docs/current/userguide/userguide.html">http://www.gradle.org/docs/current/userguide/userguide.html</a> e em PDF <a href="http://www.gradle.org/docs/current/userguide/userguide.pdf">http://www.gradle.org/docs/current/userguide/userguide.pdf</a></p>
+
+<p>Quaisquer dúvidas, podem deixar nos comentários!
+Em breve, mais posts sobre gradle! :)</p>
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    
+                      <li>
+                        <a href="mailto:rondinellimesquitas@gmail.com" target="_blank">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                      </li>
+                    
+                    
+                    <li>
+                      <a href="https://www.linkedin.com/in/rondinelli-mesquita-60b18a31/" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/rondymesquita" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">All rights reserved - 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="http://localhost:1313/js/jquery.min.js"></script>
+
+    
+    <script src="http://localhost:1313/js/bootstrap.min.js"></script>
+
+    
+    
+    <script src="http://localhost:1313/js/custom.js"></script>
+
+    
+
+</body>
+
+</html>
+

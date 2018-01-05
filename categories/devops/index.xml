@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devops on Rondy Mesquita</title>
+    <link>http://rondymesquita.github.io/categories/devops/</link>
+    <description>Recent content in Devops on Rondy Mesquita</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved - 2017</copyright>
+    <lastBuildDate>Thu, 04 Jan 2018 14:41:05 -0300</lastBuildDate>
+    
+	<atom:link href="http://rondymesquita.github.io/categories/devops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How To Create A CI Environment Using Docker</title>
+      <link>http://rondymesquita.github.io/post/how-to-create-a-ci-environment-using-docker/</link>
+      <pubDate>Thu, 04 Jan 2018 14:41:05 -0300</pubDate>
+      
+      <guid>http://rondymesquita.github.io/post/how-to-create-a-ci-environment-using-docker/</guid>
+      <description>This content was presented on Agile Testers Conference 2017 - Fortaleza Edition TLTR  Create a continuous integration environment running over Docker containers
+ All code is available here: https://github.com/rondymesquita/drone-playground PDF Presentation is available here: https://speakerdeck.com/rondymesquita/continuous-integration-with-docker
+Steps For a faster configuration, I recommend you to see README on https://github.com/rondymesquita/drone-playground
+Explain me more Who ever needed to configure a continuous integration environment? If your answer is YES, did you think it was easy?</description>
+    </item>
+    
+  </channel>
+</rss>

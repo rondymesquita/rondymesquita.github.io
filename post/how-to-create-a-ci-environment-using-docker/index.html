@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>How To Create A CI Environment Using Docker -- Rondy Mesquita</title>
+
+    
+
+    
+    <link href="http://rondymesquita.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="http://rondymesquita.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://rondymesquita.github.io">Rondy Mesquita</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/post/">Archives</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/me/">Me</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('http://rondymesquita.github.io/img/post-bg.jpg')">
+    
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>How To Create A CI Environment Using Docker</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">
+                 
+  A 7 minute read,
+
+Posted by <a href="#">Rondy Mesquita</a> on Thu, Jan 4, 2018
+<br />
+In <a href="http://rondymesquita.github.io/categories/how-to">How-To</a>, <a href="http://rondymesquita.github.io/categories/devops">Devops</a>
+
+<br />
+Tags <a href="http://rondymesquita.github.io/tags/docker">docker</a>, <a href="http://rondymesquita.github.io/tags/network">network</a>, <a href="http://rondymesquita.github.io/tags/continuous-integration">continuous-integration</a>, <a href="http://rondymesquita.github.io/tags/ci">ci</a>, <a href="http://rondymesquita.github.io/tags/container">container</a>
+
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<h3 id="this-content-was-presented-on-agile-testers-conference-2017-fortaleza-edition">This content was presented on Agile Testers Conference 2017 - Fortaleza Edition</h3>
+
+<h2 id="tltr">TLTR</h2>
+
+<blockquote>
+<p>Create a continuous integration environment running over Docker containers</p>
+</blockquote>
+
+<p>All code is available here: <a href="https://github.com/rondymesquita/drone-playground">https://github.com/rondymesquita/drone-playground</a>
+PDF Presentation is available here: <a href="https://speakerdeck.com/rondymesquita/continuous-integration-with-docker">https://speakerdeck.com/rondymesquita/continuous-integration-with-docker</a></p>
+
+<h3 id="steps">Steps</h3>
+
+<p>For a faster configuration, I recommend you to see README on <em><a href="https://github.com/rondymesquita/drone-playground">https://github.com/rondymesquita/drone-playground</a></em></p>
+
+<h2 id="explain-me-more">Explain me more</h2>
+
+<p>Who ever needed to configure a continuous integration environment? If your answer is YES, did you think it was easy? Well, I confess that I had some difficulty to configure this kind of environment some years ago, because there are some steps to follow:</p>
+
+<ul>
+<li>Download all the tools</li>
+<li>Configure database and CI tool</li>
+<li>Link CI tool to code repository</li>
+<li>Configure user permissions and networking</li>
+<li>Set the build steps</li>
+<li>Make reports and artifacts available</li>
+</ul>
+
+<p>A lot of work, right? But, If I say that this hard working can be reduced?</p>
+
+<h2 id="docker-and-microservices">Docker and Microservices</h2>
+
+<p>Here, we are going to use most of benefits that Docker brings us, reducing all the configuration time and focusing on what matters: Have a CI server up and ready to run build steps. Furthermore, Docker brings to possibility to reuse the configuration and makes easier to port the whole setup to a new environment. No further ado, let&rsquo;s get started!</p>
+
+<h2 id="tools">Tools</h2>
+
+<p>Not limited to, but I have tested with these following requirements versions:</p>
+
+<ul>
+<li>Docker (Docker version 17.06.2-ce, build cec0b72)</li>
+<li>Docker Compose (docker-compose version 1.15.0, build e12f3b9)</li>
+<li>Git (git version 2.7.4)</li>
+</ul>
+
+<p>For this example, I had used:</p>
+
+<ul>
+<li>Drone - [<a href="http://drone.io/](">http://drone.io/](</a>)
+
+<ul>
+<li>Is a continuous delivery platform built for containers. Will serve as our CI execution server</li>
+</ul></li>
+<li>Gogs - [<a href="https://gogs.io](">https://gogs.io](</a>)
+
+<ul>
+<li>Self-hosted git repository</li>
+</ul></li>
+</ul>
+
+<h2 id="arch">Arch</h2>
+
+<p>We will have Drone and Gogs running over Docker containers. Also, we are going to use Docker Compose to make easier networking configuration and make the whole environment portable with a single file.</p>
+
+<p><img src="../images/how-to-create-a-ci-environment-using-docker-arch.png" alt="enter image description here" /></p>
+
+<h2 id="show-me-the-code">Show me the code</h2>
+
+<p>Drone server is similar with Jenkins in various ways. One of them is a file with build steps declared on it.
+Here we have de <strong>.drone.yml</strong> file where you declare the steps and configuration of your repository. You must put this file in the root folder of your project folder.</p>
+
+<pre><code class="language-yaml">pipeline:
+  sampleapp:
+    image: python:2
+    commands:
+    - python main_test.py
+</code></pre>
+
+<p>Above is just an example file.
+First I declare my <strong>pipeline</strong> specifying wich steps will be executed. So, I created a <strong>sampleapp</strong> step. You can set any name you want.
+Inside the <strong>sampleapp block</strong>, I declare what <strong>docker image</strong> I am going to use for this project and what <strong>commands</strong> will be executed for it.
+<em>Check this out here <a href="https://github.com/rondymesquita/drone-playground/tree/master/sample-app-python">https://github.com/rondymesquita/drone-playground/tree/master/sample-app-python</a></em></p>
+
+<h2 id="step-by-step">Step by step</h2>
+
+<h4 id="note">Note</h4>
+
+<blockquote>
+<p>I recomend you to use the <strong>tasks.sh</strong> file on the code example.</p>
+</blockquote>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>Let&rsquo;s configure the environment. We are going to use docker-compose file with all services required for the continuous integration environment. The services are:</p>
+
+<ul>
+<li>Postgres: Database for Gogs</li>
+<li>Gogs: Self-hosted git repository</li>
+<li>Drone-server: Will handle the build steps</li>
+<li>Drone-agent: Will execute the build steps</li>
+</ul>
+
+<p>Here is the <code>docker-compose.yml</code> file used.</p>
+
+<pre><code class="language-yaml">version: '2'
+
+services:
+  postgresql:
+    container_name: postgresql
+    image: postgres:9.6.3
+    ports:
+      - &quot;5432:5432&quot;
+    networks:
+      - gogs
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: gogs
+
+  gogs:
+    container_name: gogs
+    image: gogs/gogs:0.11.19
+    ports:
+      - &quot;10022:22&quot;
+      - &quot;3000:3000&quot;
+    networks:
+      - gogs
+    depends_on:
+      - postgresql
+    volumes:
+      - /var/gogs:/data
+
+  drone-server:
+    container_name: drone-server
+    image: drone/drone:0.7
+    ports:
+      - &quot;8000:8000&quot;
+    networks:
+      - gogs
+    depends_on:
+      - gogs
+    volumes:
+      - /var/drone:/var/lib/drone/
+    environment:
+      - DRONE_ADMIN=gogs
+      - DRONE_OPEN=true
+      - DRONE_HOST=http://drone-server:8000
+      - DRONE_GOGS=true
+      - DRONE_GOGS_URL=http://gogs:3000
+      - DRONE_SECRET=&quot;mysecret&quot;
+      - DRONE_NETWORK=droneplayground_gogs
+
+  drone-agent:
+    container_name: drone-agent
+    image: drone/drone:0.7
+    command: agent
+    networks:
+      - gogs
+    depends_on:
+      - drone-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SECRET=&quot;mysecret&quot;
+      - DRONE_SERVER=ws://drone-server:8000/ws/broker
+
+
+networks:
+  gogs:
+    driver: bridge
+
+</code></pre>
+
+<h4 id="note-1">Note</h4>
+
+<blockquote>
+<p>To speed up the <strong>Gogs</strong> database configuration, I copy the file [<a href="https://github.com/rondymesquita/drone-playground/blob/master/app.ini](">https://github.com/rondymesquita/drone-playground/blob/master/app.ini](</a>) to <strong>/var/gogs/gogs/conf/</strong> folder on my machine. This folder is a shared docker volume used by <strong>Gogs</strong> to store its configuration data. It&rsquo;s optional, because you can configure Gogs manually, inserting the database url and credentials.</p>
+</blockquote>
+
+<p>Enter on folder and do:</p>
+
+<pre><code>$ ./tasks.sh up
+</code></pre>
+
+<p>Now, you have all services running on docker containers. You can see them by running:</p>
+
+<pre><code>$ docker ps
+</code></pre>
+
+<p>To get the services addresses:</p>
+
+<pre><code>$ ./tasks.sh inspect
+</code></pre>
+
+<p>You should see something like:</p>
+
+<pre><code>*** Information
+Container:      drone-server
+Address:        172.19.0.4:8000
+
+Container:      gogs
+Address:        172.19.0.3:3000
+
+Container:      postgresql
+Address:        172.19.0.2:5432
+</code></pre>
+
+<h3 id="gogs">Gogs</h3>
+
+<p>Now, let&rsquo;s configure Gogs. Open on your browser the Gogs address given by <code>inspect</code> command and register a new user. You can use any credentials you want. For this example, I am going to use these:</p>
+
+<pre><code>user:       gogs
+password:   password
+email:      gogs@email.com
+</code></pre>
+
+<p>Now, create a new <code>repository</code>. For this example, I am going to use the <code>sample-app-python</code> sample project. <em>Check this out here <a href="https://github.com/rondymesquita/drone-playground/tree/master/sample-app-python">https://github.com/rondymesquita/drone-playground/tree/master/sample-app-python</a></em>.
+Set the name to <code>sample-app-python</code> and click <code>Create Repository</code>.</p>
+
+<p>Similiar to Github, Gogs will show you the commands to push you code to the remote repository.
+Just wait paciently. We are going to push soon.</p>
+
+<h3 id="drone">Drone</h3>
+
+<p>The Drone configuration is simpler. Due the integration between Drone and Gogs, it is possible to do the configuration with some clicks. As you can see on <code>docker-compose.yml</code> file at <code>drone-server</code> service, there are some environment variables pointing to Gogs. So, open on your browser the drone address given by <code>inspect</code> command.</p>
+
+<p>You should be able to login with same user created on Gogs. For this example: <code>user: gogs and password: password</code>.
+Click on <strong>Activate</strong> link and you should be able to see the repository created on Gogs.</p>
+
+<p>You must:
+1. Click on toggle switch( to enable the repository on Drone).
+2. After enable, click on <strong>gear</strong> icon that it will appear;
+3. Click on <strong>Trusted</strong> toggle switch (to enable drone project to access Docker shared volumes);</p>
+
+<p><strong>That is it!</strong> Now, let&rsquo;s go back to repository configuration.
+Again, I&rsquo;m using <code>sample-app-python</code> sample project.
+Enter on the folder and just configure the Git as any other Git repository, paying attention to use Gogs credentials.</p>
+
+<pre><code class="language-bash">git init
+git config user.name &quot;gogs&quot;
+git config user.email &quot;gogs@email.com&quot;
+</code></pre>
+
+<p>Configure the remote:</p>
+
+<pre><code class="language-bash">git remote add ci http://[GOGS_IP]:[GOGS_PORT]/gogs/sample-app-python.git
+# git remote add ci http://172.19.0.3:3000/gogs/sample-app-python.git
+</code></pre>
+
+<p>So now, just add the files to commit, <strong>push it and see the magic happens</strong>:</p>
+
+<pre><code class="language-bash">git push -u ci master
+</code></pre>
+
+<h3 id="what-will-drone-do">What will Drone do?</h3>
+
+<ol>
+<li>Drone will create a docker container based on the image informed on <strong>.drone.yml</strong> file as you specified.</li>
+<li>Drone will <strong>clone</strong> the code from Gogs to inside that container.</li>
+<li>Drone will execute the <strong>commands</strong> in order as they were informed on the <strong>.drone.yml</strong> file.</li>
+</ol>
+
+<h4 id="note-2">Note</h4>
+
+<blockquote>
+<p>You should noticed that I used <strong>ci</strong> as the name of the remote. Named remote enable you to use multiples remotes for the same repository. So, you can use this approach on a existing project without impact, paying attention only for where you are pushing it.</p>
+</blockquote>
+
+<h3 id="shared-volumes-and-reporting">Shared Volumes and Reporting</h3>
+
+<p>When you are working with containers, all container data is isolated from external world. This means that all artifacts generated inside the container, stays in the container. To have access to this data, we need to make use of <strong>volumes</strong>. Volumes map directories from host machine to the inside the container. That is how we can have access to code coverage report, for instance.</p>
+
+<p>Another good example is a Golang project which is available on <em><a href="https://github.com/rondymesquita/drone-playground/blob/master/sample-app-go/.drone.yml">https://github.com/rondymesquita/drone-playground/blob/master/sample-app-go/.drone.yml</a></em>. On this example, the commands are executing the tests and grabbing the code coverage.</p>
+
+<pre><code class="language-yaml">workspace:
+  base: /go
+  path: src/sample-app-go
+
+pipeline:
+  sampleapp:
+    image: golang
+    commands:
+      - go build
+      - go test -coverprofile=coverage.out
+      - go tool cover -html=coverage.out -o=coverage.html
+      - timestamp=$(date +%s)
+      - mkdir -p /var/drone/reports/$timestamp-coverage
+      - cp coverage.html /var/drone/reports/$timestamp-coverage
+    volumes:
+      - /var/drone/:/var/drone/
+</code></pre>
+
+<p>Note that the coverage is generated and copied to the shared volume. So it is possible to get the coverage report on the host machine by accessing <strong>/var/drone/reports/</strong>. This is the reason of enabling the <strong>Trusted</strong> flag on Drone.</p>
+
+<p>For now, that is it. You just have configured a Continuous Integration enviroment running over Docker containers. I hope it was helpful. If you have any doubts, see the repository on Github and/or send me a message.</p>
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    
+                      <li>
+                        <a href="mailto:rondinellimesquitas@gmail.com" target="_blank">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                      </li>
+                    
+                    
+                    <li>
+                      <a href="https://www.linkedin.com/in/rondinelli-mesquita-60b18a31/" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/rondymesquita" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">All rights reserved - 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="http://rondymesquita.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="http://rondymesquita.github.io/js/bootstrap.min.js"></script>
+
+    
+    
+    <script src="http://rondymesquita.github.io/js/custom.js"></script>
+
+    
+
+</body>
+
+</html>
+

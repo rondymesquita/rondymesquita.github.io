@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Calabash on Rondy Mesquita</title>
+    <link>http://rondymesquita.github.io/tags/calabash/</link>
+    <description>Recent content in Calabash on Rondy Mesquita</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved - 2017</copyright>
+    <lastBuildDate>Sun, 31 Aug 2014 18:02:18 -0300</lastBuildDate>
+    
+	<atom:link href="http://rondymesquita.github.io/tags/calabash/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started With Calabash Android</title>
+      <link>http://rondymesquita.github.io/post/getting-started-with-calabash-android/</link>
+      <pubDate>Sun, 31 Aug 2014 18:02:18 -0300</pubDate>
+      
+      <guid>http://rondymesquita.github.io/post/getting-started-with-calabash-android/</guid>
+      <description>The content of this post it deprecated for now, because its tests against an old version of Calabash Android. It could be updated in the future. It is here for history purposes. Calabash is a tool that allows us to write and execute automated acceptance test of mobile applications. It supports Android and IOS applications and allow performs various actions as touches, motions, insert texts in fields, element assert and take screenshots.</description>
+    </item>
+    
+  </channel>
+</rss>

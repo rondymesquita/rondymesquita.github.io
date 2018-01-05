@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://rondymesquita.github.io/post/how-to-create-a-ci-environment-using-docker/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/me/</loc>
+    <lastmod>2017-08-15T08:55:35-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/post/getting-started-with-gradle/</loc>
+    <lastmod>2014-09-06T17:46:18-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/post/getting-started-with-calabash-android/</loc>
+    <lastmod>2014-08-31T18:02:18-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/android/</loc>
+    <lastmod>2014-08-31T18:02:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/calabash/</loc>
+    <lastmod>2014-08-31T18:02:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/ci/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/container/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/continuous-integration/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/categories/devops/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/docker/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/categories/getting-stated/</loc>
+    <lastmod>2014-09-06T17:46:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/gradle/</loc>
+    <lastmod>2014-09-06T17:46:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/categories/how-to/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/java/</loc>
+    <lastmod>2014-09-06T17:46:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/mobile/</loc>
+    <lastmod>2014-08-31T18:02:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/network/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/post/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/</loc>
+    <lastmod>2018-01-04T14:41:05-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/ruby/</loc>
+    <lastmod>2014-08-31T18:02:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/</loc>
+    <lastmod>2014-08-31T18:02:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://rondymesquita.github.io/tags/test/</loc>
+    <lastmod>2014-08-31T18:02:18-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

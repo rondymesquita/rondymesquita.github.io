@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Rondy Mesquita</title>
+    <link>http://rondymesquita.github.io/categories/</link>
+    <description>Recent content in Categories on Rondy Mesquita</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved - 2017</copyright>
+    
+	<atom:link href="http://rondymesquita.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Devops</title>
+      <link>http://rondymesquita.github.io/categories/devops/</link>
+      <pubDate>Thu, 04 Jan 2018 14:41:05 -0300</pubDate>
+      
+      <guid>http://rondymesquita.github.io/categories/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Getting Stated</title>
+      <link>http://rondymesquita.github.io/categories/getting-stated/</link>
+      <pubDate>Sat, 06 Sep 2014 17:46:18 -0300</pubDate>
+      
+      <guid>http://rondymesquita.github.io/categories/getting-stated/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>How To</title>
+      <link>http://rondymesquita.github.io/categories/how-to/</link>
+      <pubDate>Thu, 04 Jan 2018 14:41:05 -0300</pubDate>
+      
+      <guid>http://rondymesquita.github.io/categories/how-to/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Getting Started With Calabash Android -- Rondy Mesquita</title>
+
+    
+
+    
+    <link href="http://rondymesquita.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="http://rondymesquita.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://rondymesquita.github.io">Rondy Mesquita</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/post/">Archives</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/me/">Me</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('http://rondymesquita.github.io/img/post-bg.jpg')">
+    
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>Getting Started With Calabash Android</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">
+                 
+  A 3 minute read,
+
+Posted by <a href="#">Rondy Mesquita</a> on Sun, Aug 31, 2014
+<br />
+In <a href="http://rondymesquita.github.io/categories/getting-stated">Getting-Stated</a>
+
+<br />
+Tags <a href="http://rondymesquita.github.io/tags/ruby">ruby</a>, <a href="http://rondymesquita.github.io/tags/calabash">calabash</a>, <a href="http://rondymesquita.github.io/tags/android">android</a>, <a href="http://rondymesquita.github.io/tags/mobile">mobile</a>, <a href="http://rondymesquita.github.io/tags/test">test</a>
+
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<h3 id="the-content-of-this-post-it-deprecated-for-now-because-its-tests-against-an-old-version-of-calabash-android-it-could-be-updated-in-the-future-it-is-here-for-history-purposes">The content of this post it deprecated for now, because its tests against an old version of Calabash Android. It could be updated in the future. It is here for history purposes.</h3>
+
+<p>Calabash is a tool that allows us to write and execute automated acceptance test of mobile applications. It supports Android and IOS applications and allow performs various actions as touches, motions, insert texts in fields, element assert and take screenshots.</p>
+
+<p>Calabash uses Cucumber approach to write tests in BDD language with .feature files, leaving the tests with natural language expressing the application behavior. Here will be presented an example of a simple Android application with its respective tests. The code could be downloaded on <a href="https://github.com/rondymesquita/Calabash-example-with-android">https://github.com/rondymesquita/Calabash-example-with-android</a></p>
+
+<p>The run this project, we are going to use:</p>
+
+<ul>
+<li>Ruby 1.9.3</li>
+<li>Calabash-android gem</li>
+<li>ADB (Android Debug Bridge)</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<p>First off, it&rsquo;s necessary to install the Calabash-Android gem:</p>
+
+<pre><code>gem install calabash-android
+</code></pre>
+
+<p>Create a folder which will be your test project. Via terminal inside this folder executes:</p>
+
+<pre><code>calabash-android gen
+</code></pre>
+
+<p>This will generate the archetype test project looking like:</p>
+
+<p><img src="../images/calabash-android-gen.png" alt="enter image description here" /></p>
+
+<p>Delete the file <em>app_installation_hooks.rb</em>, because it is not be used for now.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>The next step is to generate the .apk application file. The application used on thsi example consists in receive data from two EditTexts and send them to another activity. Using eclipse ide to generate the apk, click with right button over your project and select <strong>Android Tools &gt; Export Unsigned Application Package.</strong></p>
+
+<p><img src="../images/calabash-android-eclipse-generate-apk.png" alt="enter image description here" /></p>
+
+<p>Copy the .apk to the root folder of test projects like this:</p>
+
+<p><img src="../images/calabash-android-apk-test-folder.png" alt="enter image description here" /></p>
+
+<p>Before running the tests, it is necessary to reassign  the apk file with current keystore. So:</p>
+
+<pre><code>calabash-android resign [apk_path]
+</code></pre>
+
+<h2 id="execution">Execution</h2>
+
+<p>To execute the tests, just run:</p>
+
+<pre><code>calabash-android run [apk_path]
+</code></pre>
+
+<h2 id="explaining">Explaining</h2>
+
+<p>There is a file on the project test folder with extension .feature. The BDD scenarios are written on these files. Each line of text is called &lsquo;step&rsquo; that matches with a call to calabash&rsquo;s API. The default steps from API could be consulted on this page:</p>
+
+<p><a href="https://github.com/calabash/calabash-android/blob/master/ruby-gem/lib/calabash-android/canned_steps.md">https://github.com/calabash/calabash-android/blob/master/ruby-gem/lib/calabash-android/canned_steps.md</a>.</p>
+
+<p>Each file could match to a software feature, where the test scenarios of this feature and detailed.</p>
+
+<h3 id="features-files">Features Files</h3>
+
+<p>These files follows the Cucumber structure of BDD approach.</p>
+
+<pre><code>Scenario: Fill fields and see message in another screen
+    Given I open the application
+    And I enter text &quot;Rondy&quot; into field with id &quot;etName&quot;
+    And I enter text &quot;Rock&quot; into field with id &quot;etMusic&quot;
+    When I press the &quot;Send&quot; button
+    Then I see the text &quot;Rondy likes Rock&quot;
+</code></pre>
+
+<h3 id="steps-files">Steps Files</h3>
+
+<p>If you want to implement your own steps, just create a new * .rb*  file on <em>step_definitions</em> folder. At the body&rsquo;s method you must call the calabash&rsquo;s API. The API could be consulted on this link: <a href="https://github.com/calabash/calabash-android/blob/master/ruby-gem/lib/calabash-android/steps">https://github.com/calabash/calabash-android/blob/master/ruby-gem/lib/calabash-android/steps</a></p>
+
+<pre><code>And /^I press the &quot;([^\&quot;]*)&quot;$/ |name| do
+    touch(&quot;* text:'#{name}'&quot;)
+end
+</code></pre>
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    
+                      <li>
+                        <a href="mailto:rondinellimesquitas@gmail.com" target="_blank">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                      </li>
+                    
+                    
+                    <li>
+                      <a href="https://www.linkedin.com/in/rondinelli-mesquita-60b18a31/" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/rondymesquita" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">All rights reserved - 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="http://rondymesquita.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="http://rondymesquita.github.io/js/bootstrap.min.js"></script>
+
+    
+    
+    <script src="http://rondymesquita.github.io/js/custom.js"></script>
+
+    
+
+</body>
+
+</html>
+

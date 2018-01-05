@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Rondy Mesquita</title>
+    <link>http://rondymesquita.github.io/tags/java/</link>
+    <description>Recent content in Java on Rondy Mesquita</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>All rights reserved - 2017</copyright>
+    <lastBuildDate>Sat, 06 Sep 2014 17:46:18 -0300</lastBuildDate>
+    
+	<atom:link href="http://rondymesquita.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started With Gradle</title>
+      <link>http://rondymesquita.github.io/post/getting-started-with-gradle/</link>
+      <pubDate>Sat, 06 Sep 2014 17:46:18 -0300</pubDate>
+      
+      <guid>http://rondymesquita.github.io/post/getting-started-with-gradle/</guid>
+      <description>The content of this post it deprecated for now, because its tests against an old version of Gradle. It could be updated in the future. It is here for history purposes. Gradle is a automation tool for building, testing and software deployment. Gradle also performs dependency management of your application. As Maven, it downloads the dependencies and add them to your project. One of the advantages that I particularlly like on Gradle is its ease to create tasks.</description>
+    </item>
+    
+  </channel>
+</rss>

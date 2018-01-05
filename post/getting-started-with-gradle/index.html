@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Getting Started With Gradle -- Rondy Mesquita</title>
+
+    
+
+    
+    <link href="http://rondymesquita.github.io/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link href="http://rondymesquita.github.io/css/clean-blog.min.css" rel="stylesheet">
+
+    
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+
+    
+    
+    
+
+</head>
+
+<body>
+
+    
+    <nav class="navbar navbar-default navbar-custom">
+        <div class="container-fluid">
+            
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://rondymesquita.github.io">Rondy Mesquita</a>
+            </div>
+
+                       
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/">home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/post/">Archives</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://rondymesquita.github.io/me/">Me</a>
+                    </li>
+                    
+                  </ul>
+            </div>
+           
+
+        </div>
+        
+    </nav>
+
+
+    
+    
+    <header class="intro-header" style="background-image: url('http://rondymesquita.github.io/img/post-bg.jpg')">
+    
+      <div class="container">
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="post-heading">
+               <h1>Getting Started With Gradle</h1>
+               <h2 class="subheading"></h2>
+               <span class="meta">
+                 
+  A 3 minute read,
+
+Posted by <a href="#">Rondy Mesquita</a> on Sat, Sep 6, 2014
+<br />
+In <a href="http://rondymesquita.github.io/categories/getting-stated">Getting-Stated</a>
+
+<br />
+Tags <a href="http://rondymesquita.github.io/tags/gradle">gradle</a>, <a href="http://rondymesquita.github.io/tags/java">java</a>
+
+               </span>
+             </div>
+           </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  
+
+<h3 id="the-content-of-this-post-it-deprecated-for-now-because-its-tests-against-an-old-version-of-gradle-it-could-be-updated-in-the-future-it-is-here-for-history-purposes">The content of this post it deprecated for now, because its tests against an old version of Gradle. It could be updated in the future. It is here for history purposes.</h3>
+
+<p>Gradle is a automation tool for building, testing and software deployment. Gradle also performs dependency management of your application. As Maven, it downloads the dependencies and add them to your project. One of the advantages that I particularlly like on Gradle is its ease to create tasks. Tasks are block of codes as functions which perform a step of whole build.</p>
+
+<p>The example addressed here could be downloaded on <a href="https://github.com/rondymesquita/SimpleJavaProject-Gradle">https://github.com/rondymesquita/SimpleJavaProject-Gradle</a></p>
+
+<h2 id="installing">Installing</h2>
+
+<p>First, get Gradle zip file and unzip in a folder.
+<a href="http://www.gradle.org">http://www.gradle.org</a></p>
+
+<p>After that, you should configure the environment variables according with you SO. Something like this:</p>
+
+<pre><code class="language-bash">GRADLE_HOME=/usr/local/gradle-1.8
+export GRADLE_HOME
+export PATH=$PATH:$GRADLE_HOME/bin
+</code></pre>
+
+<p>Just to be sure, go to a terminal and type:</p>
+
+<pre><code>gradle -v
+</code></pre>
+
+<p>You should see the Gradle version printed and other informations.</p>
+
+<h2 id="configuring">Configuring</h2>
+
+<p>First, create you java project as usual. In this example, a simple project was created using the maven command:</p>
+
+<pre><code>mvn archetype:generate
+</code></pre>
+
+<p>At root folder of your project, you should create a file called <strong>build.gradle</strong> and put the following content on it.</p>
+
+<pre><code>apply plugin:'java'
+apply plugin:'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+</code></pre>
+
+<h2 id="explaining">Explaining</h2>
+
+<p>The code above shows the build file structure. At lines 1 and 2, the plugins were added giving to Gradle support to work with Java and Eclipse IDE. There are a lot of plugins to work with other tools. They can be consulted on <a href="http://www.gradle.org/docs/current/userguide/standard__plugins.html">http://www.gradle.org/docs/current/userguide/standard__plugins.html</a></p>
+
+<p>In <strong>repositories</strong> block are declared from were Gradle should get the dependencies, but we are not going to focus on this for now.</p>
+
+<p>In <strong>dependencies</strong> block are declared the dependencies of your project. This example is using JUnit on version 4.11 for testing scope.</p>
+
+<p>The verify if the file is correct, just run:</p>
+
+<pre><code>gradle tasks
+</code></pre>
+
+<p>This command will list all tasks that can be executed for this project. To configure the project to be able to run on Eclipse IDE, run:</p>
+
+<pre><code>gradle clean eclipse
+</code></pre>
+
+<p>Gradle will generate the necessary files.</p>
+
+<h2 id="tasks">Tasks</h2>
+
+<p>If you want to run the unit tests of your project, run:</p>
+
+<pre><code>gradle test
+</code></pre>
+
+<p>The tests will be executed and a report will be generated.
+Fine, but where the reports are being generated? At root folder of your project, you should see a folder called <strong>build</strong>. The test reports should be available on <strong>build/reports/tests</strong>.</p>
+
+<p>To generate the jar of your application, run:</p>
+
+<pre><code>gradle jar
+</code></pre>
+
+<p>The jar will be available on <strong>build/libs</strong></p>
+
+<h2 id="dependency-management">Dependency Management</h2>
+
+<p>Until now, the only used dependency was JUnit. If you go look the build path, it should be there. If you want to add a new dependency, just add the dependency reference on <strong>dependencies</strong> block.</p>
+
+<p>Say that I want to use Spring: You can simply add this <strong>dependencies</strong> block.</p>
+
+<pre><code>compile 'org.springframework:spring-core:4.1.0.RELEASE'
+compile 'org.springframework:spring-context:4.1.0.RELEASE'
+</code></pre>
+
+<p>On the terminal, run:</p>
+
+<pre><code>gradle eclipse
+</code></pre>
+
+<p>Gradle will download the jars and add them to your project.</p>
+
+<p>The final file should look like:</p>
+
+<pre><code>apply plugin:'java'
+apply plugin:'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+    compile 'org.springframework:spring-core:4.1.0.RELEASE'
+    compile 'org.springframework:spring-context:4.1.0.RELEASE'
+}
+</code></pre>
+
+<p>This makes easier to add new dependencies or change their version. To fiund other dependencies, I usually go to <a href="http://mvnrepository.com">http://mvnrepository.com</a> where you search for the dependency, get the code and inserto into you build file.</p>
+
+                  
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+    
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <ul class="list-inline text-center">
+                    
+                      <li>
+                        <a href="mailto:rondinellimesquitas@gmail.com" target="_blank">
+                          <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                          </span>
+                        </a>
+                      </li>
+                    
+                    
+                    <li>
+                      <a href="https://www.linkedin.com/in/rondinelli-mesquita-60b18a31/" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="https://github.com/rondymesquita" target="_blank">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                  <p class="copyright text-muted">All rights reserved - 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="http://rondymesquita.github.io/js/jquery.min.js"></script>
+
+    
+    <script src="http://rondymesquita.github.io/js/bootstrap.min.js"></script>
+
+    
+    
+    <script src="http://rondymesquita.github.io/js/custom.js"></script>
+
+    
+
+</body>
+
+</html>
+
